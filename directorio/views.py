@@ -1,12 +1,9 @@
-from multiprocessing import context
-from urllib import request
 from rest_framework import status
 from rest_framework.response import Response
-from directorio.serializers import ChangePasswordSerializer, UpdateUserSerializer, UserSignupSerializer
+from directorio.serializers import ChangePasswordSerializer, UserSignupSerializer
 
 # Django REST Framework
 from rest_framework import status, viewsets, generics, mixins
-from rest_framework.decorators import action, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 # Serializers

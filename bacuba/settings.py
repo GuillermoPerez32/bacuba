@@ -9,13 +9,16 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
-from datetime import timedelta
 from email.policy import default
+from datetime import timedelta
+import environ
 from pathlib import Path
 import os
 # Update database configuration with $DATABASE_URL.
 # import dj_database_url
+
+env = environ.Env()
+env.read_env()
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'nfosf7823u9kOM@HY*@&U!.,HBDkfin387#R#YRB9kwda0vw0efa@#qy$@zt!4bwm38$^d$_68z98)jizkyj2i^a@')
 
@@ -57,7 +60,9 @@ INSTALLED_APPS = [
     # 'rest_framework.authtoken',
     'mascotas.apps.MascotasConfig',
     'directorio.apps.DirectorioConfig',
+    'administracion.apps.AdministracionConfig',
     'rest_framework_simplejwt',
+    'django_rest_passwordreset',
 ]
 
 MIDDLEWARE = [
@@ -151,6 +156,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'directorio.User'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env.str('EMAIL_HOST')
+EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=False)
+EMAIL_PORT = env.int('EMAIL_PORT')
+EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
 
 # Django REST Framework
 REST_FRAMEWORK = {

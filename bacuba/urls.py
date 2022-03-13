@@ -19,10 +19,6 @@ from django_restful_admin import admin as rest_admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework import routers
-from django.views.generic.base import TemplateView
-
-from rest_framework.routers import DefaultRouter
 
 
 
@@ -34,7 +30,9 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', include('mascotas.urls')),
     path('api-admin/', rest_admin.site.urls),
+    path('api-admin2/', include('administracion.urls')),
     path('', include('directorio.urls')),
+    path(r'^api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
     path('auth/', include('rest_framework.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
